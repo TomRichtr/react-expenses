@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
-function App() {
+import NewExpense from "./components/NewExpense/NewExpense";
+import Expenses from "./components/Expenses/Expenses";
+import { v4 as uuidv4 } from "uuid";
+
+const randomDate = (start, end) => {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+};
+const startDate = new Date(2019, 0, 1);
+const endDate = new Date(2022, 11, 31);
+
+const DUMMY_EXPENSES = [
+  {
+    date: randomDate(startDate, endDate),
+    title: "Car Insurance",
+    amount: Math.round(Math.random() * 1000),
+    id: uuidv4(),
+  },
+  {
+    date: randomDate(startDate, endDate),
+    title: "Toilet Paper",
+    amount: Math.round(Math.random() * 1000),
+    id: uuidv4(),
+  },
+  {
+    date: randomDate(startDate, endDate),
+    title: "Food",
+    amount: Math.round(Math.random() * 1000),
+    id: uuidv4(),
+  },
+  {
+    date: randomDate(startDate, endDate),
+    title: "Drinks",
+    amount: Math.round(Math.random() * 1000),
+    id: uuidv4(),
+  },
+];
+
+const App = () => {
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
+  const handleAddExpense = (formData) => {
+    setExpenses((prevState) => {
+      return [formData, ...prevState];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NewExpense onAddExpense={handleAddExpense} />
+      <Expenses expenses={expenses} />
     </div>
   );
-}
+};
 
 export default App;

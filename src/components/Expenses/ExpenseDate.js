@@ -1,6 +1,6 @@
-import "./ExpanseDate.css"
+import "./ExpanseDate.css";
 
-function ExpanseDate(props) {
+const ExpanseDate = (props) => {
   const { date } = props;
   const day = date.toLocaleString("en-US", { day: "2-digit" });
   const month = date.toLocaleString("en-US", { month: "long" });
@@ -13,6 +13,6 @@ function ExpanseDate(props) {
       <div className="expense-date__year">{year}</div>
     </div>
   );
-}
+};
 
 export default ExpanseDate;
